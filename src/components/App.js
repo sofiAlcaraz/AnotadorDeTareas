@@ -33,7 +33,12 @@ function App() {//hook
     const nuevasColumnas = [...columnas];
     nuevasColumnas[index].tasks = nuevasColumnas[index].tasks.filter(item => item.id !== tarea.id);
     setColumnas(nuevasColumnas);
-};
+  };
+  const onMoverTarea = (tarea, index) => {
+    const nuevasColumnas = [...columnas];
+    nuevasColumnas[index + 1].tasks.push(tarea);
+    onBorrarDatos(tarea, index);
+  }
 
 
   //no pasar setter en etiqueta
@@ -46,7 +51,7 @@ function App() {//hook
 
           <Formulario onNuevaTarea={onNuevaTarea} />
 
-          <Tabla onBorrarDatos={onBorrarDatos} columnas={columnas} setColumnas={setColumnas} />
+          <Tabla  columnas={columnas} onBorrarDatos={onBorrarDatos} onMoverTarea={onMoverTarea} />
 
         </div>
       </div>

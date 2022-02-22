@@ -1,16 +1,10 @@
-
+import {getRandom} from './../utils';
 
 //js :const(no se puede "reasignar" si operar con la variable/lista/objeto)
 //     let puedo reasignar
 //(evitar)var en js significa que tieene alcance glob
-
-function getRandom(min, max) {
-    var num = Math.floor(Math.random() * (max - min)) + min;
-    console.log(num);
-    return num;
-}
 //deconstruyo props, en ...props queda el resto
-function Formulario({ onNuevaTarea}) {//props(llamo props.cosa) o {cosa,...props} o {cosa}
+const Formulario = ({ onNuevaTarea }) => {//props(llamo props.cosa) o {cosa,...props} o {cosa}
 
     const nuevaTarea = (event) => {
         event.preventDefault();

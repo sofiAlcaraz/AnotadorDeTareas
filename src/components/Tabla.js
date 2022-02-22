@@ -1,7 +1,10 @@
 
 import Tarea from "./Tarea";
 
-function Tabla({onBorrarDatos,columnas,...props}) {
+
+//siempre que hago un map le pongo su key
+
+const Tabla = ({ columnas, onBorrarDatos, onMoverTarea, ...props }) => {
 
     return (
         <div className='App-tabla'>
@@ -15,8 +18,8 @@ function Tabla({onBorrarDatos,columnas,...props}) {
                     {c.tasks.length ? "" : "No tasks"}
 
                     {c.tasks.map(tarea =>
-                        <Tarea onBorrarDatos={onBorrarDatos} tarea={tarea} index={index} columnas={columnas}
-                          setColumnas={props.setColumnas} />
+                        <Tarea key={tarea.id} columnas={columnas} tarea={tarea} index={index} onBorrarDatos={onBorrarDatos}
+                            onMoverTarea={onMoverTarea} />
                     )}
                 </div>
             )}
@@ -24,3 +27,5 @@ function Tabla({onBorrarDatos,columnas,...props}) {
     );
 }
 export default Tabla;
+//ctrl+shift+h para remplazar en todos lados
+//ctrl+h remplazar en el archivo
