@@ -40,6 +40,8 @@ function App() {//hook
     onBorrarDatos(tarea, index);
   }
 
+  
+
 
   //no pasar setter en etiqueta
   //minuscula atributos y mayuscula componentes 
@@ -55,6 +57,7 @@ function App() {//hook
 
         </div>
       </div>
+      
     </div>
   );
 }
