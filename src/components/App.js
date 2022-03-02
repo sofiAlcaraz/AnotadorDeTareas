@@ -35,31 +35,39 @@ function App() {//hook
     nuevasColumnas[index].tasks = nuevasColumnas[index].tasks.filter(item => item.id !== tarea.id);
     setColumnas(nuevasColumnas);
   };
-  const onMoverTarea = (tarea, origen,destino) => {
+  const onMoverTarea = (tarea, origen, destino) => {
     const nuevasColumnas = [...columnas];
     nuevasColumnas[destino].tasks.push(tarea);
-    onBorrarDatos(tarea, origen);
+    //onBorrarDatos(tarea, origen);
+   nuevasColumnas[origen].tasks = nuevasColumnas[origen].tasks.filter(item => item.id !== tarea.id);
+    return nuevasColumnas;
   }
-  const onReordenar = (pos1, pos2, column) => {
-    const nuevasColumnas = [...columnas];
+  const onReordenar = (pos1, pos2, column,columns) => {
+    console.log(columns[column].tasks);
+    const nuevasColumnas = [...columns];
     const [removed] = nuevasColumnas[column].tasks.splice(pos1, 1);
+    
     nuevasColumnas[column].tasks.splice(pos2, 0, removed);
-    setColumnas(nuevasColumnas);
+   return nuevasColumnas;
   }
 
   const onDragEnd = useCallback((e) => {
     console.log(e);
     const { source, destination } = e;//tiene que tener los mismos nombres?
-    if (!destination || (source.index === destination.index) && parseInt(source.droppableId) === parseInt(destination.droppableId)) {
+    if (!destination || (source.index === destination.index && parseInt(source.droppableId) === parseInt(destination.droppableId))) {
       return;
     }
     const tarea = columnas[parseInt(source.droppableId)].tasks.find(t => t.id === parseInt(e.draggableId));
     if (parseInt(source.droppableId) !== parseInt(destination.droppableId)) {
-      onMoverTarea(tarea, parseInt(source.droppableId), parseInt(destination.droppableId));
-      return;
-    } else {
-      onReordenar(source.index, destination.index, parseInt(source.droppableId));
+      const nuevasColumnas=onMoverTarea(tarea, parseInt(source.droppableId), parseInt(destination.droppableId));
+      console.log(nuevasColumnas);
+     setColumnas(onReordenar(columnas[parseInt(destination.droppableId)].tasks.length-1, destination.index, parseInt(destination.droppableId),nuevasColumnas));
+    } else{
+      setColumnas(onReordenar(source.index, destination.index, parseInt(source.droppableId),columnas));
     }
+    console.log(e);
+    
+    
   }, []);
   //no pasar setter en etiqueta
   //minuscula atributos y mayuscula componentes 
