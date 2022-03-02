@@ -38,34 +38,37 @@ function App() {//hook
   const onMoverTarea = (tarea, origen, destino) => {
     const nuevasColumnas = [...columnas];
     nuevasColumnas[destino].tasks.push(tarea);
-    //onBorrarDatos(tarea, origen);
-   nuevasColumnas[origen].tasks = nuevasColumnas[origen].tasks.filter(item => item.id !== tarea.id);
+    onBorrarDatos(tarea, origen);
+   //nuevasColumnas[origen].tasks = nuevasColumnas[origen].tasks.filter(item => item.id !== tarea.id);
     return nuevasColumnas;
   }
   const onReordenar = (pos1, pos2, column,columns) => {
     console.log(columns[column].tasks);
     const nuevasColumnas = [...columns];
     const [removed] = nuevasColumnas[column].tasks.splice(pos1, 1);
-    
     nuevasColumnas[column].tasks.splice(pos2, 0, removed);
    return nuevasColumnas;
   }
 
   const onDragEnd = useCallback((e) => {
-    console.log(e);
-    const { source, destination } = e;//tiene que tener los mismos nombres?
-    if (!destination || (source.index === destination.index && parseInt(source.droppableId) === parseInt(destination.droppableId))) {
+    const { source, destination } = e;
+    const columnaOrigen=parseInt(source.droppableId);
+    const columnaDestino=parseInt(destination.droppableId);
+    const indexOrigen=source.index;
+    const  indexDestino=destination.index;
+    
+    if (!destination || (indexOrigen === indexDestino && columnaOrigen === columnaDestino)) {
       return;
     }
-    const tarea = columnas[parseInt(source.droppableId)].tasks.find(t => t.id === parseInt(e.draggableId));
-    if (parseInt(source.droppableId) !== parseInt(destination.droppableId)) {
-      const nuevasColumnas=onMoverTarea(tarea, parseInt(source.droppableId), parseInt(destination.droppableId));
-      console.log(nuevasColumnas);
-     setColumnas(onReordenar(columnas[parseInt(destination.droppableId)].tasks.length-1, destination.index, parseInt(destination.droppableId),nuevasColumnas));
+    const tarea = columnas[columnaOrigen].tasks.find(t => t.id === parseInt(e.draggableId));
+
+    if (columnaOrigen !== columnaDestino) {
+      const nuevasColumnas=onMoverTarea(tarea, columnaOrigen, columnaDestino);
+     setColumnas(onReordenar(columnas[columnaDestino].tasks.length-1, indexDestino, columnaDestino,nuevasColumnas));
     } else{
-      setColumnas(onReordenar(source.index, destination.index, parseInt(source.droppableId),columnas));
+      setColumnas(onReordenar(indexOrigen, indexDestino, columnaOrigen,columnas));
     }
-    console.log(e);
+   
     
     
   }, []);
@@ -82,8 +85,6 @@ function App() {//hook
             <Formulario onNuevaTarea={onNuevaTarea} />
 
             <Tabla columnas={columnas} onBorrarDatos={onBorrarDatos} onMoverTarea={onMoverTarea} />
-
-
 
           </div>
         </div>
