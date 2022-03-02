@@ -2,6 +2,7 @@
 import Tarea from "./Tarea";
 import { Droppable } from "react-beautiful-dnd";
 
+
 //siempre que hago un map le pongo su key
 
 const Tabla = ({ columnas, onBorrarDatos, onMoverTarea, ...props }) => {
@@ -19,8 +20,12 @@ const Tabla = ({ columnas, onBorrarDatos, onMoverTarea, ...props }) => {
                             {c.tasks.length ? "" : "No tasks"}
 
                             {c.tasks.map((tarea, index2) => 
-                                   <Tarea key={tarea.id} columnas={columnas} tarea={tarea} i={index2} inde={index} onBorrarDatos={onBorrarDatos}
-                                onMoverTarea={onMoverTarea} />  
+                                
+                            <Tarea key={tarea.id} columnas={columnas} tarea={tarea} i={index2} inde={index} onBorrarDatos={onBorrarDatos}
+                            onMoverTarea={onMoverTarea} />
+
+                             
+                                   
                     )}
                             {droppableProvided.placeholder}
                         </div>

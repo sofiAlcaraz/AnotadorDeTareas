@@ -35,53 +35,36 @@ function App() {//hook
     nuevasColumnas[index].tasks = nuevasColumnas[index].tasks.filter(item => item.id !== tarea.id);
     setColumnas(nuevasColumnas);
   };
-  const onMoverTarea = (tarea, index) => {
+  const onMoverTarea = (tarea, origen,destino) => {
     const nuevasColumnas = [...columnas];
-    nuevasColumnas[index + 1].tasks.push(tarea);
-    onBorrarDatos(tarea, index);
+    nuevasColumnas[destino].tasks.push(tarea);
+    onBorrarDatos(tarea, origen);
   }
-  const reorder = (list ,elem1,elem2,colum)=>{
-    
-    const result=[...list];
-    const[borrar]=result[colum].tasks.splice(elem1,1);
-    result[colum].tasks.splice(elem2,0,borrar);
-    return result;
+  const onReordenar = (pos1, pos2, column) => {
+    const nuevasColumnas = [...columnas];
+    const [removed] = nuevasColumnas[column].tasks.splice(pos1, 1);
+    nuevasColumnas[column].tasks.splice(pos2, 0, removed);
+    setColumnas(nuevasColumnas);
   }
 
-  const onBeforeCapture = useCallback(() => {//l arrastre está a punto de comenzar y las dimensiones no se han recopilado del DOM
-    /*...*/ 
-    /*...*/
-  }, []);
-  const onBeforeDragStart = useCallback(() => {//n arrastre está a punto de comenzar y las dimensiones se han capturado del DOM
-    /*...*/ 
-  }, []);
-  const onDragStart = useCallback(() => {//se esta arrastrando
-    /*...*/ 
-  }, []);
-  const onDragUpdate = useCallback(() => {//ealgo cambio
-   
-    /*...*/
-  }, []);//parseInt
   const onDragEnd = useCallback((e) => {
-   
-    const{source,destination}=e;//tiene que tener los mismos nombres?
-    if(!destination){
-      return;
-    }if(source.index===destination.index && source.droppableId===destination.droppableId){
+    console.log(e);
+    const { source, destination } = e;//tiene que tener los mismos nombres?
+    if (!destination || (source.index === destination.index) && parseInt(source.droppableId) === parseInt(destination.droppableId)) {
       return;
     }
-    setColumnas(modColum =>reorder(modColum,source.index,destination.index,destination.droppableId));
-    // the only one that is required
+    const tarea = columnas[parseInt(source.droppableId)].tasks.find(t => t.id === parseInt(e.draggableId));
+    if (parseInt(source.droppableId) !== parseInt(destination.droppableId)) {
+      onMoverTarea(tarea, parseInt(source.droppableId), parseInt(destination.droppableId));
+      return;
+    } else {
+      onReordenar(source.index, destination.index, parseInt(source.droppableId));
+    }
   }, []);
   //no pasar setter en etiqueta
   //minuscula atributos y mayuscula componentes 
   return (
-    <DragDropContext
-      onBeforeCapture={onBeforeCapture}
-      onBeforeDragStart={onBeforeDragStart}
-      onDragStart={onDragStart}
-      onDragUpdate={onDragUpdate}
-      onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd} >
       <div className='App'>
         <h1>Organizador de Tareas</h1>
 
@@ -91,6 +74,8 @@ function App() {//hook
             <Formulario onNuevaTarea={onNuevaTarea} />
 
             <Tabla columnas={columnas} onBorrarDatos={onBorrarDatos} onMoverTarea={onMoverTarea} />
+
+
 
           </div>
         </div>

@@ -16,7 +16,7 @@ const Formulario = ({ onNuevaTarea }) => {//props(llamo props.cosa) o {cosa,...p
             description: event.target.descripcion.value,
             disable: "false"
         };
-        onNuevaTarea(newOb);
+        onNuevaTarea(newOb);//en el largo-1
     }
     return (
         <div className='App-form' >
