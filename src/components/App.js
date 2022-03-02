@@ -8,7 +8,7 @@ import Formulario from './Formulario';
 import Tabla from './Tabla';
 
 import { DragDropContext } from "react-beautiful-dnd";
-//mas necesecito, descargas,issues/problemas, ultimos cambios, estrellas en git
+//mas necesito, descargas,issues/problemas, ultimos cambios, estrellas en git
 
 function App() {//hook
   const [columnas, setColumnas] = useState([
@@ -68,9 +68,6 @@ function App() {//hook
     } else{
       setColumnas(onReordenar(indexOrigen, indexDestino, columnaOrigen,columnas));
     }
-   
-    
-    
   }, []);
   //no pasar setter en etiqueta
   //minuscula atributos y mayuscula componentes 
