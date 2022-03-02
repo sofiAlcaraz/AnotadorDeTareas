@@ -19,14 +19,10 @@ const Tabla = ({ columnas, onBorrarDatos, onMoverTarea, ...props }) => {
 
                             {c.tasks.length ? "" : "No tasks"}
 
-                            {c.tasks.map((tarea, index2) => 
-                                
-                            <Tarea key={tarea.id} columnas={columnas} tarea={tarea} i={index2} inde={index} onBorrarDatos={onBorrarDatos}
-                            onMoverTarea={onMoverTarea} />
-
-                             
-                                   
-                    )}
+                            {c.tasks.map((tarea, index2) =>
+                                <Tarea key={tarea.id} columnas={columnas} tarea={tarea} indexTarea={index2} indexCOlum={index} onBorrarDatos={onBorrarDatos}
+                                    onMoverTarea={onMoverTarea} />
+                            )}
                             {droppableProvided.placeholder}
                         </div>
                     )}
