@@ -73,11 +73,13 @@ function App() {//hook
   //minuscula atributos y mayuscula componentes 
   return (
     <DragDropContext onDragEnd={onDragEnd} >
-      <div className='App'>
-        <h1>Organizador de Tareas</h1>
+      <div className='App' class="m-1 " >
+        <div class="justify-center">
+        <h1 class="m-2 text-6xl ">Organizador de Tareas</h1>
+        </div>
+        <div className='App-bodyy' class="flex justify-center  " >
 
-        <div className='App-bodyy'>
-          <div className='App-body'>
+          <div className='App-body' class="flex p-1rem... flex-wrap flex-col max-w-full  shadow-2xl">
 
             <Formulario onNuevaTarea={onNuevaTarea} />
 
