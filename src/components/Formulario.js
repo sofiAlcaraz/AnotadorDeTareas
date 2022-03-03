@@ -1,4 +1,5 @@
 import {getRandom} from './../utils';
+import Button from './Button';
 
 
 //import {v4 as uuidv4} from "uuid";
@@ -21,7 +22,7 @@ const Formulario = ({ onNuevaTarea }) => {//props(llamo props.cosa) o {cosa,...p
         onNuevaTarea(newOb);//en el largo-1
     }
     return (
-        <div className='App-form' class="bg-zinc-400 p-4 max-h-48 border-solid border-stone-500 rounded-lg ..." >
+        <div  className="bg-zinc-400 p-4 max-h-48 border-solid border-stone-500 rounded-lg" >
             <form onSubmit={nuevaTarea}>
                 <label htmlFor="inputTitulo" className='App-form-label'>Agregar Tarea</label>
                 <input type="text" className='form-control' name="titulo"></input>
@@ -29,10 +30,10 @@ const Formulario = ({ onNuevaTarea }) => {//props(llamo props.cosa) o {cosa,...p
                 <label htmlFor="inputDescripcion" className='App-form-label'>Descripcion</label>
                 <input type="text" className='form-control' name="descripcion"></input>
                 
-                <button  class="m-1 pr-4 border-2 font-semibold border-doublex p-1 bg-white border-gray-500 opacity-75 rounded-lg " type="submit"> Agregar</button>
+                <Button>Agregar</Button>
             </form>
         </div>
     );
 }
-
+//<Button>Agregar</Button> --> agregar es el children
 export default Formulario;

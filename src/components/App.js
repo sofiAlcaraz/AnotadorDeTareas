@@ -1,5 +1,5 @@
 
-import './App.css';
+
 
 import React, { useState, useCallback } from 'react';
 
@@ -72,15 +72,18 @@ function App() {//hook
   }, []);
   //no pasar setter en etiqueta
   //minuscula atributos y mayuscula componentes 
+
+
+  //img pasar a carpeta-h.-full
   return (
     <DragDropContext onDragEnd={onDragEnd} >
-      <div className='App' class="m-1 bg-[url('./images.png')]  " >
-        <div class="text-center">
-        <h1 class="m-2 text-6xl  ">Organizador de Tareas</h1>
+      <div  className="h-full min-h-screen m-1 bg-[url('./Img/images.png')] " >
+        <div className="text-center">
+        <h1 className="m-2 text-6xl  ">Organizador de Tareas</h1>
         </div>
-        <div className='App-bodyy' class="flex justify-center " >
+        <div className="flex justify-center " >
 
-          <div className='App-body' class="flex p-1rem... flex-wrap flex-col max-w-full  shadow-2xl">
+          <div  className="flex p-1 flex-wrap flex-col max-w-full  shadow-2xl">
 
             <Formulario onNuevaTarea={onNuevaTarea} />
 

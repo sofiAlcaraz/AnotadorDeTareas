@@ -11,14 +11,14 @@ import { Droppable } from "react-beautiful-dnd";
 const Tabla = ({ columnas, onBorrarDatos, onMoverTarea, ...props }) => {
 
     return (
-        <div className='App-tabla' class="pt-4 flex justify-between gap-4 flex-wrap justify-center ">
+        <div className="pt-4 flex justify-between gap-4 flex-wrap">
 
             {columnas.map((c, index) =>
                 <Droppable droppableId={index.toString()} key={index}>
                     {(droppableProvided) => (
-                        <div {...droppableProvided.droppableProps} ref={droppableProvided.innerRef} className='App-col' class=" border-dotted rounded-lg ... border-2 border-gray-900 min-w-[15rem] ">
+                        <div {...droppableProvided.droppableProps} ref={droppableProvided.innerRef} className=" border-dotted rounded-lg ... border-2 border-gray-900 min-w-[15rem] ">
 
-                            <p className='App-col-titulo' class=" font-semibold text-base m-4 bg-slate-300 rounded-lg ... ">{c.title}</p>
+                            <p className=" font-semibold text-base m-4 bg-slate-300 rounded-lg ... ">{c.title}</p>
 
                             {c.tasks.length ? "" : "No tasks"}
 
